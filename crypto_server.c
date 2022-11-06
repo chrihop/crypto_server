@@ -141,6 +141,7 @@ main(int argc, char** argv)
 
         crypto_rng(worker->secrete_key, sizeof(worker->secrete_key));
         crypto_sc_mac_init(&worker->cypher, worker->secrete_key, sizeof(worker->secrete_key), true);
+        size_t b64_len;
         crypto_b64_encode(secret_key_b64, 96, &b64_len, worker->secrete_key, sizeof(worker->secrete_key));
         printf("new client: %s:%d [key: %s]\n",
             inet_ntoa(worker->client_address.sin_addr),
