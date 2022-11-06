@@ -75,8 +75,8 @@ crypto_worker(void* arg)
     }
 }
 
-int
-main(int argc, char** argv)
+static void
+startup(void)
 {
     crypto_init();
     enclave_key_native(&root_key);
@@ -88,6 +88,12 @@ main(int argc, char** argv)
     crypto_b64_encode(
         device_fingerprint_b64, 96, &b64_len, device_fingerprint, 32);
     printf("sever fingerprint: %s\n", device_fingerprint_b64);
+}
+
+int
+main(int argc, char** argv)
+{
+    startup();
 
     server.fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server.fd < 0)

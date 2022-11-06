@@ -28,10 +28,16 @@ add_executable(crypto_server
     crypto_server.c
     )
 
-target_link_libraries(crypto_server
-    PRIVATE
-    enclave crypto mbedcrypto pthread
-    )
+if (BAREMETAL)
+    target_link_libraries(crypto_server
+        PRIVATE
+        enclave crypto mbedcrypto)
+else()
+    target_link_libraries(crypto_server
+        PRIVATE
+        enclave crypto mbedcrypto pthread
+        )
+endif()
 
 target_include_directories(crypto_server
     PRIVATE
