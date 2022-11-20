@@ -71,6 +71,7 @@ crypto_worker(void* arg)
         printf("[%s:%d] recv %ld bytes |= encrypt => mac <%s>\n",
             inet_ntoa(me->client_address.sin_addr),
             ntohs(me->client_address.sin_port), len, me->tag_b64);
+        printf("send %ld bytes to client\n", me->output_len);
         send(me->connection, me->output, me->output_len, 0);
     }
 }
